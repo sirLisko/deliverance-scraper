@@ -1,0 +1,30 @@
+{
+  "name": "deliverance-scraper",
+  "version": "0.1.0",
+  "description": "Menu Scraper for Deliverance.co.uk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sirLisko/deliverance-scraper.git"
+  },
+  "keywords": [
+    "scraper",
+    "menu",
+    "deliverance"
+  ],
+  "author": "Luca Lischetti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirLisko/deliverance-scraper/issues"
+  },
+  "homepage": "https://github.com/sirLisko/deliverance-scraper",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "lodash": "^2.4.1",
+    "q": "^1.0.1",
+    "request": "^2.37.0"
+  }
+}

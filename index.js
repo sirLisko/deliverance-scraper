@@ -33,6 +33,7 @@ function orderMenu(menu){
 	menu = _.uniq(menu,function(item){
 		var copy = _.clone(item, true);
 		copy.menu = null;
+		copy.course = null;
 		return JSON.stringify(copy);
 	});
 	menu = _.sortBy(menu, 'name');

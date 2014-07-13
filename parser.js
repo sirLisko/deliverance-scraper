@@ -13,48 +13,52 @@ function specificMenu(html){
 	var parsedHTML = $.load(html);
 	var menu = [];
 
-	parsedHTML('.dish').each(function(i, el) {
-		var dish = {}, $el = $(el);
+	parsedHTML('.menu-course').each(function(i, course) {
+		var $course = $(course);
+		var courseName = $course.find('.menu-course-banner').text().trim().toLowerCase();
+		$course.find('.dish').each(function(i, el) {
+			var dish = {}, $el = $(el);
 
-		var dishCode = $el.find('[data-code]').data('code');
-		if (ignorer && ignorer.dishes && ignorer.dishes.indexOf(dishCode) !== -1) { return; }
+			var dishCode = $el.find('[data-code]').data('code');
+			if (ignorer && ignorer.dishes && ignorer.dishes.indexOf(dishCode) !== -1) { return; }
 
-		var name = $el.find('.name a');
-		name.children().remove('span');
-		name = name.text().trim().toLowerCase();
+			var name = $el.find('.name a');
+			name.children().remove('span');
+			name = name.text().trim().toLowerCase();
 
-		dish.menu = parsedHTML('#menu-header-type').attr('alt').toLowerCase();
+			dish.menu = parsedHTML('#menu-header-type').attr('alt').toLowerCase();
+			dish.course = courseName;
 
-		if($el.find('[alt="Vegetarian"]').length) { dish.vegetarian = true; }
-		if($el.find('[alt="A bit hot"]').length) { dish.hot = true; }
-		if($el.find('[alt="Under 300 cals*"]').length) { dish.light = true; }
-		if($el.find('[alt="New"]').length) { dish.new = true; }
+			if($el.find('[alt="Vegetarian"]').length) { dish.vegetarian = true; }
+			if($el.find('[alt="A bit hot"]').length) { dish.hot = true; }
+			if($el.find('[alt="Under 300 cals*"]').length) { dish.light = true; }
+			if($el.find('[alt="New"]').length) { dish.new = true; }
 
-		var extra = $el.find('.optional-extra');
-		if(extra.length){
-			dish.extra = [];
-			extra.each(function(i, ex){
-				dish.extra.push({
-					'name': $(ex).find('label').text().toLowerCase(),
-					'price': parseFloat($(ex).find('.price').text().substring(1))
+			var extra = $el.find('.optional-extra');
+			if(extra.length){
+				dish.extra = [];
+				extra.each(function(i, ex){
+					dish.extra.push({
+						'name': $(ex).find('label').text().toLowerCase(),
+						'price': parseFloat($(ex).find('.price').text().substring(1))
+					});
 				});
-			});
-		}
+			}
 
-		var variants = $el.find('.variant');
-		if(variants.length) {
-			variants.each(function(i, ex){
-				var variant = _.clone(dish, true);
-				variant.name = name + ' - ' + $(ex).find('label').text().toLowerCase();
-				variant.price = parseFloat($(ex).find('.price').text().substring(1));
-				menu.push(variant);
-			});
-		} else {
-			dish.name = name;
-			dish.price = parseFloat($el.find('[itemprop=price]').text().trim().substring(1));
-			menu.push(dish);
-		}
-
+			var variants = $el.find('.variant');
+			if(variants.length) {
+				variants.each(function(i, ex){
+					var variant = _.clone(dish, true);
+					variant.name = name + ' - ' + $(ex).find('label').text().toLowerCase();
+					variant.price = parseFloat($(ex).find('.price').text().substring(1));
+					menu.push(variant);
+				});
+			} else {
+				dish.name = name;
+				dish.price = parseFloat($el.find('[itemprop=price]').text().trim().substring(1));
+				menu.push(dish);
+			}
+		});
 	});
 
 	return menu;

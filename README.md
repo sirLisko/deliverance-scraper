@@ -1,6 +1,8 @@
-#Scraping Deliverance
+# Scraping Deliverance
 
-A Promises based scraper for [http://deliverance.co.uk](http://deliverance.co.uk). 
+**UPDATE**: Unfortunately the service Deliverance is not available anymore. It is still possible to use this scraper with the version cached by [http://web.archive.org]([http://web.archive.org]).
+
+A Promises based scraper for [http://deliverance.co.uk](http://deliverance.co.uk).
 
 ### Methods
 #### deliverance.getMenu([menuName])
@@ -11,7 +13,7 @@ Return all the dishes of the menu.
 ```js
 var deliverance = require('deliverance');
 
-deliverance.getMenu().then(console.log).done(); 
+deliverance.getMenu().then(console.log).done();
 // or
 deliverance.getMenu('italian').then(console.log).done();
 ```
